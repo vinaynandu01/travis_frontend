@@ -1,0 +1,258 @@
+.hero {
+  height: auto;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  display: flex;
+  align-items: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.hero-content {
+  max-width: 120px;
+  margin: 0 auto;
+  width: 100%;
+  padding-right: 50%;
+  padding-top: 80px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  /* margin-top:1000px; */
+  /* margin-bottom: 1.5rem; */
+  color: var(--text-color);
+}
+
+.hero-title .highlight {
+  color: var(--primary-color);
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--light-text);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.cta-button:first-child {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.cta-button.secondary {
+  background-color: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:first-child:hover {
+  background-color: var(--secondary-color);
+}
+
+.cta-button.secondary:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.hero-illustration {
+  position: absolute;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration-container {
+  position: relative;
+  width: 80%;
+  height: 0;
+  padding-bottom: 80%;
+}
+
+.illustration-shape {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.shape-1 {
+  width: 70%;
+  height: 70%;
+  background: linear-gradient(145deg, rgba(67, 97, 238, 0.1), rgba(76, 201, 240, 0.1));
+  top: 15%;
+  left: 15%;
+}
+.shape-2 {
+  width: 50%;
+  height: 50%;
+  background: linear-gradient(145deg, rgba(114, 9, 183, 0.05), rgba(67, 97, 238, 0.05));
+  top: 5%;
+  left: 25%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape-3 {
+  width: 60%;
+  height: 60%;
+  background: linear-gradient(145deg, rgba(76, 201, 240, 0.05), rgba(114, 9, 183, 0.05));
+  top: 20%;
+  left: 20%;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.illustration-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 35%;
+  background-color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.illustration-icon svg {
+  width: 60%;
+  height: 60%;
+  color: var(--primary-color);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(67, 97, 238, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(67, 97, 238, 0);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .hero-content {
+    padding-right: 0;
+    text-align: center;
+    padding-top: 100px;
+  }
+  
+  .hero-subtitle {
+    margin: 0 auto 2.5rem;
+  }
+  
+  .hero-cta {
+    justify-content: center;
+  }
+  
+  .hero-illustration {
+    opacity: 0.3;
+    width: 100%;
+    z-index: -1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}
+.hero {
+  min-height: 100vh;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding-right: 50%;
+  padding-top: 80px;
+}
+
+@media screen and (max-width: 992px) {
+  .hero-content {
+    padding-right: 0;
+    text-align: center;
+    padding-top: 100px;
+  }
+  
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  
+  .hero-illustration {
+    opacity: 0.3;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.5rem 3rem;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-cta {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .cta-button {
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+  }
+}
