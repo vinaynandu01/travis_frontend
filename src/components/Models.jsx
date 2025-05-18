@@ -128,7 +128,7 @@ const Models = () => {
         }
       } else {
         // Call response generation API
-        response = await fetch(`${API_URL}/generate`, {
+        response = await fetch(`https://vinay0123-response-eng-1.hf.space/query`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
