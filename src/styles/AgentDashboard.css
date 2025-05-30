@@ -1,0 +1,422 @@
+/* AgentDashboard.css - Professional Styling */
+:root {
+  --primary: #6c5ce7;
+  --primary-dark: #5849c0;
+  --secondary: #a29bfe;
+  --text-light: #f5f6fa;
+  --text-dark: #2d3436;
+  --text-muted: #718093;
+  --bg-light: #f8f9fa;
+  --bg-dark: #1a1c20;
+  --bg-sidebar: #252a34;
+  --success: #00cec9;
+  --warning: #fdcb6e;
+  --danger: #ff7675;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius: 10px;
+  --transition: all 0.3s ease;
+}
+
+/* Base styles with apple-system font */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Open Sans', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.agent-dashboard {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Sidebar styling with professional typography */
+.sidebar {
+  background-color: var(--bg-sidebar);
+  color: var(--text-light);
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard-title {
+  font-size: 2.25rem;
+  margin: 0 0 2rem;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+  text-align: center;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intents-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  margin-bottom: 0.75rem;
+  color: var(--secondary);
+  border-bottom: 1px solid rgba(162, 155, 254, 0.5);
+  padding-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+/* Fixed size intents list with scroll */
+.intents-list {
+  list-style: none;
+  padding: 0.25rem 0.5rem 0.25rem 0;
+  margin: 0 0 1rem;
+  height: 600px; /* Fixed height */
+  max-height: calc(100vh - 250px); /* Responsive max height */
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) transparent;
+}
+
+/* Custom intents list scrollbar */
+.intents-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.intents-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.intents-list::-webkit-scrollbar-thumb {
+  background-color: rgba(162, 155, 254, 0.4);
+  border-radius: 20px;
+}
+
+.intents-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(162, 155, 254, 0.6);
+}
+
+.intent-item {
+  padding: 0.6rem 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: var(--radius);
+  background-color: rgba(255, 255, 255, 0.07);
+  transition: var(--transition);
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+.intent-item:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+/* Chat area styling with improved readability */
+.chat-area {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background-color: var(--bg-light);
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+  max-height: calc(100vh - 150px);
+}
+
+.message {
+  max-width: 70%;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  line-height: 1.5;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  font-size: 0.95rem;
+  letter-spacing: 0.2px;
+  font-weight: 400;
+}
+
+.message:not(.user-message) {
+  background-color: white;
+  color: var(--text-dark);
+  align-self: flex-start;
+  border-top-left-radius: 4px;
+}
+
+.user-message {
+  background-color: var(--primary);
+  color: white;
+  align-self: flex-end;
+  border-top-right-radius: 4px;
+}
+
+/* Chat input container with buttons */
+.chat-container {
+  position: relative;
+  margin-top: auto;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: var(--radius);
+  background-color: white;
+  box-shadow: var(--shadow);
+  
+}
+
+.chat-input {
+  flex: 1;
+  padding: 1.1rem;
+  border: none;
+  border-radius: var(--radius);
+  background-color: transparent;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  font-family: inherit;
+  letter-spacing: 0.2px;
+}
+
+.chat-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.chat-input:focus {
+  outline: none;
+}
+
+.input-group:focus-within {
+  box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.25);
+}
+/*---------------===============================================================================================================================*/
+/* Audio, Mic and Send button styling */
+.audio-btn, .mic-btn, .send-btn {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* background: none; */
+  /* border: none; */
+  cursor: pointer;
+  height: 35px;
+  width: 10px;
+  /* border-radius: 50%; */
+  transition: all 0.2s ease;
+}
+
+.audio-btn {
+  color: var(--primary);
+  font-size: 1.1rem;
+  padding-left: 0.5rem;
+}
+
+.mic-btn {
+  color: var(--primary);
+}
+
+.mic-btn.listening {
+  color: var(--danger);
+  animation: pulse 1.5s infinite;
+}
+
+.send-btn {
+  background-color: var(--primary);
+  color: white;
+  margin-right: 0.5rem;
+}
+
+.send-icon, .mic-icon {
+  width: 30px;
+  height: 18px;
+  stroke:white;
+     stroke: #2d3436;
+   fill:none;
+   display:block;
+}
+
+.audio-btn:hover, .mic-btn:hover, .send-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 4px rgba(108, 92, 231, 0.6);
+}
+
+.audio-btn:active, .mic-btn:active, .send-btn:active {
+  transform: scale(0.95);
+}
+
+/* Pulse animation for mic when listening */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Logout button styling */
+.travis-agent-logout-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  z-index: 10;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  font-family: inherit;
+  background-color: var(--danger);
+  color: white;
+}
+
+.travis-agent-logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 16px -4px rgba(0, 0, 0, 0.15);
+}
+
+.travis-agent-logout-btn:active {
+  transform: translateY(0);
+}
+
+/* Subtle animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+  .agent-dashboard {
+    grid-template-columns: 250px 1fr;
+  }
+  
+  .intents-list {
+    max-height: calc(100vh - 220px);
+  }
+}
+
+@media (max-width: 768px) {
+  .agent-dashboard {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    z-index: 100;
+    transition: left 0.3s ease;
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .intents-list {
+    max-height: calc(100vh - 250px);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .audio-btn, .mic-btn, .send-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .send-icon, .mic-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .chat-input {
+    padding: 0.9rem 0.7rem;
+  }
+}
+
+/* Dark mode support with improved contrast for readability */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-light: #121212;
+    --text-dark: #e0e0e0;
+  }
+  
+  .input-group {
+    background-color: #222;
+    /* bottom:px; */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .chat-input {
+    color: var(--text-light);
+  }
+  
+  .message:not(.user-message) {
+    background-color: #2a2a2a;
+    color: var(--text-light);
+  }
+  
+  .intents-list {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+}
+
+/* Additional professional touches */
+::selection {
+  background-color: var(--secondary);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(108, 92, 231, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(108, 92, 231, 0.5);
+}
