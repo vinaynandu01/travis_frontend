@@ -15,16 +15,17 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [hasInitialAnnouncement, setHasInitialAnnouncement] = useState(false);
-  const location = useLocation();
-  const isAgent = new URLSearchParams(location.search).get("type") === "agent";
+  const navigate = useNavigate();
+  // Always assume agent registration
+  const isAgent = true;
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     phoneNumber: "",
     password: "",
-    role: isAgent ? "agent" : "admin",
+    role: "agent", // Default role is agent
   });
-  const navigate = useNavigate();
 
   // Webcam configuration
   const videoConstraints = {
@@ -62,15 +63,15 @@ function Register() {
     if (!hasInitialAnnouncement) {
       requestAnimationFrame(() => {
         setTimeout(() => {
-          const welcomeMessage = isAgent
-            ? "Welcome to Agent Registration. Please fill in your details and capture your face."
-            : "Welcome to Admin Registration. Please fill in your details.";
+          // Always use agent registration message
+          const welcomeMessage =
+            "Welcome to Agent Registration. Please fill in your details and capture your face.";
           speak(welcomeMessage);
           setHasInitialAnnouncement(true);
         }, 300);
       });
     }
-  }, [speak, language, isAgent, hasInitialAnnouncement]);
+  }, [speak, language, hasInitialAnnouncement]); // Removed isAgent from dependencies
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -156,7 +157,8 @@ function Register() {
   const handleRegister = async () => {
     if (!validateDetails()) return;
 
-    if (isAgent && capturedImages.length === 0 && showCamera) {
+    // Facial images are required for agent registration
+    if (capturedImages.length === 0 && showCamera) {
       const errorMsg = "Please capture your facial images first";
       setError(errorMsg);
       speak(errorMsg);
@@ -175,8 +177,8 @@ function Register() {
         submitFormData.append(key, formData[key]);
       });
 
-      // Add images only for agent registration
-      if (isAgent && capturedImages.length > 0) {
+      // Add images for agent registration
+      if (capturedImages.length > 0) {
         speak("Processing face images.");
         capturedImages.forEach((image, index) => {
           const byteString = atob(image.split(",")[1]);
@@ -206,10 +208,8 @@ function Register() {
         await new Promise((resolve) => {
           const successMsg =
             language === "en-US"
-              ? isAgent
-                ? "Registration completed successfully. Your face has been registered. You can now login using facial recognition."
-                : "Registration completed successfully. You can now login with your username and password."
-              : "Registration completed successfully. You can now login with your username and password.";
+              ? "Registration completed successfully. Your face has been registered. You can now login using facial recognition."
+              : "Registration completed successfully. Your face has been registered. You can now login using facial recognition."; // Modified success message
           speak(successMsg);
           setTimeout(resolve, 1500); // Give more time for longer message
         });
@@ -239,7 +239,7 @@ function Register() {
     <div className="background-shapes">
       <SecondaryNavbar />
       <div
-        className={`container ${isAgent ? "active" : ""}`}
+        className="container active" // Always active for agent styling
         id="container"
         style={{
           width: "100%",
@@ -254,47 +254,45 @@ function Register() {
           display: "flex",
         }}
       >
-        {/* Purple Panel - Left for agent, hidden for admin */}
-        {isAgent && (
-          <div
+        {/* Purple Panel - Always shows for agent registration */}
+        <div
+          style={{
+            width: "50%",
+            background: "linear-gradient(135deg, #6a3de8, #512da8)",
+            padding: "30px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            color: "white",
+            textAlign: "center",
+          }}
+        >
+          <h2
             style={{
-              width: "50%",
-              background: "linear-gradient(135deg, #6a3de8, #512da8)",
-              padding: "30px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-              textAlign: "center",
+              fontSize: "24px",
+              fontWeight: "700",
+              marginBottom: "12px",
+              letterSpacing: "0.5px",
             }}
           >
-            <h2
-              style={{
-                fontSize: "24px",
-                fontWeight: "700",
-                marginBottom: "12px",
-                letterSpacing: "0.5px",
-              }}
-            >
-              Hello, Agent!
-            </h2>
-            <p
-              style={{
-                fontSize: "14px",
-                lineHeight: "1.4",
-                maxWidth: "320px",
-                color: "rgba(255, 255, 255, 0.95)",
-                marginBottom: "12px",
-              }}
-            >
-              Use facial recognition to create your account and access our
-              platform designed for visually impaired agents.
-            </p>
-          </div>
-        )}
+            Hello, Agent!
+          </h2>
+          <p
+            style={{
+              fontSize: "14px",
+              lineHeight: "1.4",
+              maxWidth: "320px",
+              color: "rgba(255, 255, 255, 0.95)",
+              marginBottom: "12px",
+            }}
+          >
+            Use facial recognition to create your account and access our
+            platform designed for visually impaired agents.
+          </p>
+        </div>
 
-        {/* Form Container */}
+        {/* Form Container - Always shows details and camera for agent */}
         <div
           style={{
             flex: 1,
@@ -313,7 +311,7 @@ function Register() {
               marginBottom: "20px",
             }}
           >
-            {isAgent ? "Agent Registration" : "Admin Registration"}
+            Agent Registration
           </h1>
 
           {error && (
@@ -408,7 +406,7 @@ function Register() {
                 }}
               />
               <button
-                onClick={isAgent ? handleProceedToCamera : handleRegister}
+                onClick={handleProceedToCamera}
                 style={{
                   width: "100%",
                   padding: "12px 16px",
@@ -423,7 +421,7 @@ function Register() {
                   transition: "all 0.3s ease",
                 }}
               >
-                {isAgent ? "Continue to Face Capture" : "Complete Registration"}
+                Continue to Face Capture
               </button>
 
               <p
@@ -537,7 +535,7 @@ function Register() {
 
                 <button
                   onClick={handleRegister}
-                  disabled={loading || capturedImages.length === 0}
+                  disabled={loading || capturedImages.length === 0} // Images are required for agent registration
                   style={{
                     flex: 1,
                     padding: "12px 16px",
@@ -559,45 +557,7 @@ function Register() {
           )}
         </div>
 
-        {/* Purple Panel - Right for admin */}
-        {!isAgent && (
-          <div
-            style={{
-              width: "50%",
-              background: "linear-gradient(135deg, #6a3de8, #512da8)",
-              padding: "30px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              color: "white",
-              textAlign: "center",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "24px",
-                fontWeight: "700",
-                marginBottom: "12px",
-                letterSpacing: "0.5px",
-              }}
-            >
-              Hello, Admin!
-            </h2>
-            <p
-              style={{
-                fontSize: "14px",
-                lineHeight: "1.4",
-                maxWidth: "320px",
-                color: "rgba(255, 255, 255, 0.95)",
-                marginBottom: "12px",
-              }}
-            >
-              Create your administrator account to manage and oversee the
-              platform operations effectively.
-            </p>
-          </div>
-        )}
+        {/* Removed Admin Purple Panel */}
       </div>
     </div>
   );

@@ -60,20 +60,15 @@ function LoginForm() {
 
   const handleRegisterClick = async (e) => {
     e.preventDefault();
-    const registerType = active ? "agent" : "admin";
     try {
-      // First announce the navigation
       await handleNavigation(
-        `/register?type=${registerType}`,
-        registerType === "agent"
-          ? "Welcome to Agent Registration. Please fill in your details and capture your face."
-          : "Welcome to Admin Registration. Please fill in your details."
+        "/register?type=agent",
+        "Welcome to Agent Registration. Please fill in your details and capture your face."
       );
-      // Then navigate
-      navigate(`/register?type=${registerType}`);
+      navigate("/register?type=agent");
     } catch (error) {
       console.error("Voice navigation error:", error);
-      navigate(`/register?type=${registerType}`);
+      navigate("/register?type=agent");
     }
   };
 
@@ -371,36 +366,35 @@ function LoginForm() {
                   >
                     {loading ? "Verifying..." : "Login with Face"}
                   </button>
+
+                  {/* Registration link appears only in Agent Login mode */}
+                  <p
+                    style={{
+                      marginTop: "20px",
+                      textAlign: "center",
+                      fontSize: "16px",
+                      lineHeight: "24px",
+                      letterSpacing: "0.3px",
+                      color: "#555",
+                    }}
+                  >
+                    Don't Have An Account?{" "}
+                    <a
+                      href="/register?type=agent"
+                      onClick={handleRegisterClick}
+                      style={{
+                        color: "#6a3de8",
+                        textDecoration: "none",
+                        fontWeight: "600",
+                        fontSize: "14px",
+                        marginLeft: "5px",
+                      }}
+                    >
+                      Register
+                    </a>
+                  </p>
                 </>
               )}
-
-              <p
-                style={{
-                  marginTop: "20px",
-                  textAlign: "center",
-                  fontSize: "16px",
-                  lineHeight: "24px",
-                  letterSpacing: "0.3px",
-                  color: "#555",
-                }}
-              >
-                Don't Have An Account?{" "}
-                <a
-                  href={
-                    active ? "/register?type=agent" : "/register?type=admin"
-                  }
-                  onClick={handleRegisterClick}
-                  style={{
-                    color: "#6a3de8",
-                    textDecoration: "none",
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    marginLeft: "5px",
-                  }}
-                >
-                  Register
-                </a>
-              </p>
             </div>
           </form>
         </div>
