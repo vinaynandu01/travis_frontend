@@ -60,15 +60,20 @@ function LoginForm() {
 
   const handleRegisterClick = async (e) => {
     e.preventDefault();
+    const registerType = active ? "agent" : "admin";
     try {
+      // First announce the navigation
       await handleNavigation(
-        "/register?type=agent",
-        "Welcome to Agent Registration. Please fill in your details and capture your face."
+        `/register?type=${registerType}`,
+        registerType === "agent"
+          ? "Welcome to Agent Registration. Please fill in your details and capture your face."
+          : "Welcome to Admin Registration. Please fill in your details."
       );
-      navigate("/register?type=agent");
+      // Then navigate
+      navigate(`/register?type=${registerType}`);
     } catch (error) {
       console.error("Voice navigation error:", error);
-      navigate("/register?type=agent");
+      navigate(`/register?type=${registerType}`);
     }
   };
 
@@ -188,8 +193,8 @@ function LoginForm() {
           },
         }
       );
-
-      if (response.data.name && response.data.name !== "user not recognised") {
+      console.log(response.data.name);
+      if (response.data.name && response.data.name !== "unknown") {
         await new Promise((resolve) => {
           const successMsg =
             language === "en-US"
@@ -366,35 +371,36 @@ function LoginForm() {
                   >
                     {loading ? "Verifying..." : "Login with Face"}
                   </button>
-
-                  {/* Registration link appears only in Agent Login mode */}
-                  <p
-                    style={{
-                      marginTop: "20px",
-                      textAlign: "center",
-                      fontSize: "16px",
-                      lineHeight: "24px",
-                      letterSpacing: "0.3px",
-                      color: "#555",
-                    }}
-                  >
-                    Don't Have An Account?{" "}
-                    <a
-                      href="/register?type=agent"
-                      onClick={handleRegisterClick}
-                      style={{
-                        color: "#6a3de8",
-                        textDecoration: "none",
-                        fontWeight: "600",
-                        fontSize: "14px",
-                        marginLeft: "5px",
-                      }}
-                    >
-                      Register
-                    </a>
-                  </p>
                 </>
               )}
+
+              <p
+                style={{
+                  marginTop: "20px",
+                  textAlign: "center",
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  letterSpacing: "0.3px",
+                  color: "#555",
+                }}
+              >
+                Don't Have An Account?{" "}
+                <a
+                  href={
+                    active ? "/register?type=agent" : "/register?type=admin"
+                  }
+                  onClick={handleRegisterClick}
+                  style={{
+                    color: "#6a3de8",
+                    textDecoration: "none",
+                    fontWeight: "600",
+                    fontSize: "14px",
+                    marginLeft: "5px",
+                  }}
+                >
+                  Register
+                </a>
+              </p>
             </div>
           </form>
         </div>
