@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/AgentDashboard.module.css";
+import chatbotImage from "../../chatbot.jpg";
+import humanImage from "../../human.jpg";
 // const API_URL = "https://vinay0123-final-model.hf.space"
 const API_URL = "https://vinay0123-final-model.hf.space";
 function AgentDashboard() {
@@ -251,14 +253,44 @@ function AgentDashboard() {
                 msg.user ? styles.userMessage : ""
               }`}
             >
-              {msg.text}
+              {!msg.user && (
+                <>
+                  <img
+                    src={chatbotImage}
+                    alt="Travis Assistant"
+                    className={styles.systemAvatar}
+                  />
+                  <div className={styles.messageContent}>
+                    <div className={styles.systemName}>Travis Assistant</div>
+                    {msg.text}
+                  </div>
+                </>
+              )}
+              {msg.user && (
+                <>
+                  <div className={styles.userTextBubble}>{msg.text}</div>
+                  <img
+                    src={humanImage}
+                    alt="You"
+                    className={styles.userAvatar}
+                  />
+                </>
+              )}
             </p>
           ))}
           {isGenerating && (
             <p className={styles.message}>
-              English: {currentEnglish || "Generating..."}
-              {currentEnglish &&
-                "\n\nTelugu: " + (currentTelugu || "Translating...")}
+              <img
+                src={chatbotImage}
+                alt="Travis Assistant"
+                className={styles.systemAvatar}
+              />
+              <div className={styles.messageContent}>
+                <div className={styles.systemName}>Travis Assistant</div>
+                English: {currentEnglish || "Generating..."}
+                {currentEnglish &&
+                  "\n\nTelugu: " + (currentTelugu || "Translating...")}
+              </div>
             </p>
           )}
         </div>

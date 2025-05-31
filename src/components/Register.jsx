@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Webcam from "react-webcam";
 import SecondaryNavbar from "./SecondaryNavbar";
-import "../styles/Register.css";
+import "../styles/register.css";
 import { VoiceContext } from "../context/VoiceContext";
 
 function Register() {
@@ -192,7 +192,7 @@ function Register() {
       }
 
       const response = await axios.post(
-        "http://localhost:7860/register",
+        "https://vinay0123-travis-login.hf.space/register",
         submitFormData,
         {
           headers: {

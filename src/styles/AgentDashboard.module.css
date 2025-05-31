@@ -125,31 +125,98 @@
 
 .message {
   max-width: 70%;
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
-  border-radius: 10px;
   line-height: 1.5;
   position: relative;
   animation: fadeIn 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   font-size: 0.95rem;
   letter-spacing: 0.2px;
   font-weight: 400;
   white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .message:not(.userMessage) {
+  align-self: flex-start;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   background-color: white;
   color: #2d3436;
-  align-self: flex-start;
-  border-top-left-radius: 4px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.systemAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 4px;
+}
+
+.messageContent {
+  flex: 1;
+}
+
+.systemName {
+  font-size: 0.8rem;
+  color: #6c5ce7;
+  margin-bottom: 4px;
+  font-weight: 500;
 }
 
 .userMessage {
+  align-self: flex-end;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-direction: row;
+}
+
+.userBubblesContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.userNameBubble {
+  font-size: 0.8rem;
+  color: #2d3436;
+  font-weight: 500;
+  background-color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+}
+
+.userTextBubble {
   background-color: #6c5ce7;
   color: white;
-  align-self: flex-end;
-  border-top-right-radius: 4px;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  line-height: 1.5;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  max-width: calc(100% - 70px);
+  word-break: break-word;
+  flex: 1;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 0;
+  border: 2px solid white;
+  flex-shrink: 0;
 }
 
 /* Chat input container with buttons */
@@ -176,6 +243,7 @@
   background-color: transparent;
   font-size: 0.95rem;
   transition: all 0.3s ease;
+  width: 100%;
   font-family: inherit;
   letter-spacing: 0.2px;
 }
@@ -379,7 +447,7 @@
   }
 
   .chatArea {
-    background-color: #121212; /* Keeping original dark background */
+    background-color: #121212;
   }
 
   .inputGroup {
@@ -394,6 +462,19 @@
   .message:not(.userMessage) {
     background-color: #2a2a2a;
     color: #f5f6fa;
+  }
+
+  .userTextBubble {
+    background-color: #6c5ce7;
+  }
+
+  .userNameBubble {
+    background-color: #444;
+    color: #f5f6fa;
+  }
+
+  .userAvatar {
+    border-color: #333;
   }
 
   .intentsList {
